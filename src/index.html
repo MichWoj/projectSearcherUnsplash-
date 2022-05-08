@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+ <head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <title>UNSPLASH Projekt</title>
+ <link rel="stylesheet" href="./scss/partials/index.scss">
+ <script src="./index.js"></script>
+ </head>
+ <body>
+
+ <div id="my-js-tabs">
+ <nav class="js-tabs__nav">
+ <ul class="js-tabs__tabs-container">
+ <li class="js-tabs__tab active">Zdjęcia</li>
+ <li class="js-tabs__tab">Kolekcje</li>
+ <li class="js-tabs__tab">Użytkownicy</li>
+ </ul>
+ <div class="js-tabs__marker"></div>
+ </nav>
+
+ <ul class="js-tabs__content-container">
+ <li class="js-tabs__content active" id="photos-tab">
+ <div class="photos-tab__searchbar">
+ <input placeholder="Wpisz nazwę zdjecia"/>
+ <select>
+ <option value="">BRAK</option>
+ <option value="black_and_white">Czarno Białe</option>
+ <option value="black">Czarne</option>
+ <option value="white">Białe</option>
+ </select>
+ <button>
+ Szukaj
+ </button>
+</div>
+<div class="photos-tab__results">
+</div>
+</li>
+
+ <li class="js-tabs__content" id="collections-tab">
+ <div class="collections-tab__searchbar">
+ <div class="autocomplete">
+ <input placeholder="Wpisz nazwę kolekcji"/>
+ <div class="autocomplete__results hide"></div>
+ </div>
+ </div>
+ <div class="collections-tab__results">
+ </div>
+ </li>
+ 
+ <li class="js-tabs__content" id="user-tab">
+ <div class="user-tab__searchbar">
+ <div class="autocomplete">
+ <input placeholder="Wpisz nazwę użytkownika"/>
+ <div class="autocomplete__results hide"></div>
+ </div>
+ </div>
+ <div class="user-tab__results">
+ </div>
+
+
+ </li>
+ </ul>
+ </div>
+ 
+ </body>
+</html>
