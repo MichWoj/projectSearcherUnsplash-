@@ -1,183 +1,163 @@
 @import '../../js-tabs-base';
+// Dodaj to na samej górze index.scss dla pewności
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+// --- Zmienne dla zachowania spójności ---
+$common-radius: 20px;
+$primary-green: green;
+$light-green: rgb(189, 248, 69);
+$deep-green: rgb(0, 210, 150);
+$bg-cornsilk: cornsilk;
+
+// --- Reset i Tło ---
+body { 
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  
+  // Wyraźny gradient naprawiający "ucięcia"
+  background: linear-gradient(180deg, $light-green 0%, $deep-green 100%);
+  background-attachment: fixed;
+  
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 
 h1 {
-  color:rgb(0, 255, 179);
+  color: rgb(0, 255, 179);
 }
 
-body { 
-  background-color: rgb(189, 248, 69);
-}
-
-
-
+// --- Elementy Formularza ---
 input {
   display: inline-block;
   padding: 10px 20px;
-  border: 2px solid green; 
-  background-color: rgb(0, 255, 179);
+  border: 2px solid $primary-green; 
+  background-color: white; 
   font-size: 20px;
-  border-right-width: 8px;
-  -webkit-border-radius: 12px;
   border-radius: 12px;
+  border-right-width: 8px;
   font-weight: bolder;
-  color: green;
-  -o-text-overflow: clip;
-  text-overflow: clip;
-  background: cornsilk;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  text-shadow: 1px 1px 0 rgba(255,255,255,0.66) ;
-}
-
-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  
-}
-
-.box select {
-  background-color: cornsilk;
-  color: green;
-  padding: 12px;
-  width: 250px;
-  border: none;
-  font-size: 20px;
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-  -webkit-appearance: button;
-  appearance: button;
+  color: $primary-green;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
   outline: none;
-
 }
 
-.box::before {
-  content: "\f13a";
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 20%;
-  height: 100%;
-  text-align: center;
-  font-size: 28px;
-  line-height: 45px;
-  color: rgba(255, 255, 255, 0.5);
-  background-color: rgba(255, 255, 255, 0.1);
-  pointer-events: none;
+// Kontener dla selecta
+.box {
+  position: relative; 
+  display: inline-block;
+
+  select {
+    background-color: $bg-cornsilk;
+    color: $primary-green;
+    padding: 12px;
+    width: 250px;
+    border: none;
+    font-size: 20px;
+    border-radius: 0; // Reset dla appearance button
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+    cursor: pointer;
+
+    option {
+      padding: 30px;
+    }
+  }
+
+  &::before {
+    content: "\f13a";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: rgba($primary-green, 0.5);
+    pointer-events: none;
+  }
 }
 
-.box:hover::before {
-  color: rgba(255, 255, 255, 0.6);
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.box select option {
-  padding: 30px;
-}
-
-.photos-tab__searchbar{
-  display: flex; 
-  flex-direction: row; 
-  justify-content: center; 
-  gap: 10px;
-}
-
-.photos-tab__results{
-  display: flex; 
-  flex-direction: row; 
-  justify-content: center; 
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
-
-.autocomplete__result-title{
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: green;
-  font-weight: bolder;
-}
-
-.autocomplete__results{
-  display: flex; 
-  flex-direction: row; 
-  justify-content: center; 
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.autocomplete__result-row{
-  display: flex;
-  flex-direction: column;
-  height: auto;
-
-}
-
-img{
-  border-radius: 25px; 
-}
-
-
-
-
-
-
-/* CSS */
+// --- Przycisk ---
 .button-24 {
-  background: green;
-  border: 1px solid green;
+  background: $primary-green;
+  border: 1px solid $primary-green;
   border-radius: 6px;
   box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
-  box-sizing: border-box;
   color: #FFFFFF;
   cursor: pointer;
   display: inline-block;
-  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
-  font-size: 16px;
   font-weight: 800;
-  line-height: 16px;
-  min-height: 40px;
-  outline: 0;
   padding: 12px 14px;
-  text-align: center;
-  text-rendering: geometricprecision;
-  text-transform: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: middle;
-}
+  transition: all 0.2s;
 
-.button-24:hover,
-.button-24:active {
-  background-color: initial;
-  background-position: 0 0;
-  color: green; 
-}
-
-.button-24:active {
-  opacity: .5;
-}
-prop1 {
-    background-color: aqua;
-    display: none;
+  &:hover, &:active {
+    background-color: white;
+    color: $primary-green; 
   }
-
-prop2 {
-    background-color: greenyellow;
-    display: none;
 }
 
-prop3 {
-  background-color: yellow;
-  display: none;
+// --- Ujednolicona Siatka Wyników (Grid) ---
+.photos-tab__results, 
+.collections-tab__results, 
+.user-tab__results,
+.autocomplete__results {
+  display: grid;
+  // Dynamiczne kolumny - równe odstępy GAP
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px; 
+  padding: 20px;
+  box-sizing: border-box;
+  align-items: start;
 }
 
-prop4 {
-  background-color: plum;
-  display: none;
+// --- Spójne Obrazy i Karty ---
+// Selektor uderza w zdjęcia we wszystkich zakładkach
+.photos-tab__results img,
+.collections-tab__results img,
+.user-tab__results img,
+.autocomplete__result-row img {
+  width: 100%;
+  height: 250px; 
+  object-fit: cover;
+  border-radius: $common-radius; 
+  display: block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
 }
 
-prop5 {
-  background-color: burlywood;
-  display: none;
+// Karta użytkownika/kolekcji (jeśli zawiera tekst pod zdjęciem)
+.autocomplete__result-row {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.15); 
+  border-radius: $common-radius;
+  overflow: hidden;
+  margin: 0; // Usunięcie marginesów psujących Grid
+
+  .autocomplete__result-title {
+    padding: 15px;
+    text-align: center;
+    color: $primary-green;
+    font-weight: bolder;
+  }
 }
 
+// Pomocnicze klasy (jeśli używane)
+.photos-tab__searchbar {
+  display: flex; 
+  flex-direction: row; 
+  justify-content: center; 
+  gap: 15px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
