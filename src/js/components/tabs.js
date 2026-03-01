@@ -60,13 +60,13 @@ export function initializeTabs(elm, tabFuncs) {
         debounceTimeout = setTimeout(() => {
             searchCollections(searchInput.value)
             .then((collections) => {
-            autocompleteResults.innerHTML = '';
+            results.innerHTML = '';
             for (const collection of collections.results) {
             const rowDiv = createRow(collection);
             rowDiv.addEventListener('click', () => {
             handleAutocompleteSelect(collection.id);
             });
-            autocompleteResults.appendChild(rowDiv);
+            results.appendChild(rowDiv);
             }
             console.log(collections);
             });
@@ -149,89 +149,36 @@ export function initializeUserTab() {
             });
             }
 
-            function createRow(user) {
-            const rowDiv = createElement('div', {
-            id: 'area',
-            class: 'autocomplete__result-row'
-            });
+function createRow(user) {
+    const rowDiv = createElement('div', {
+        class: 'autocomplete__result-row'
+    });
 
-            const titleSpan = createElement('span', {
-            id: 'span1',
-            class: 'autocomplete__result-title',
-            //onClick : openProperties()
-            });
-            titleSpan.innerText = user.name;
+    const titleSpan = createElement('span', {
+        class: 'autocomplete__result-title'
+    });
+    titleSpan.innerText = user.name;
 
-            
+    const img = createElement('img', {
+        class: 'autocomplete__result-thumb',
+        src: user.profile_image.large // medium może być za małe do szerokiego gridu
+    });
 
-            const img = createElement('img',{
-            id:'img',
-            class: 'autocomplete__result-thumb',
-            onClick : 'openProperties1()',
-            //onClick : "alert('obrazek!!!')",
-            src: user.profile_image.medium
-            });
-        
-            const prop1 = createElement('prop1',{
-                id: 'properties1',
-                
-            })
-            prop1.innerHTML = "Imię: " + user.first_name 
-
-            const prop2 = createElement('prop2',{
-                id: 'properties2',
-                
-            })
-            prop2.innerHTML = " Nazwisko:  " + user.last_name 
-
-            const prop3 = createElement('prop3',{
-                id: 'properties3',
-                
-            })
-            prop3.innerHTML = " Adres: " + user.portfolio_url 
-
-            const prop4 = createElement('prop4',{
-                id: 'properties4',
-                
-            })
-            prop4.innerHTML = " Ilość zdjęć: " + user.total_photos
-
-            const prop5 = createElement('prop5',{
-                id: 'properties5',
-                
-            })
-            prop5.innerHTML = " Ilość like: " + user.total_likes
-
-            rowDiv.appendChild(titleSpan);
-            rowDiv.appendChild(img);
-            rowDiv.appendChild(prop1);
-            rowDiv.appendChild(prop2);
-            rowDiv.appendChild(prop3);
-            rowDiv.appendChild(prop4);
-            rowDiv.appendChild(prop5);
-
-            return rowDiv;
-
-        }
-
-
-        // function openProperties() {
-
-        //     const element1  = document.querySelector("span");
-        //     // element1.addEventListener('click', klikme);
-        //     element1.addEventListener('click', function(){
-        //         this.style.color = 'red'});
-        //         //document.getElementById("span").style.color = "green"
-        //     };
-
-        function klikme() {
-            console.log('Klik!');
-        }
-        const element = document.querySelector('#span');
-        element.onclick = klikme;
-        element.onmouseover = function() {
-            console.log('Najechano przycisk!');
-        }
-
-    };
+    // NOWOŚĆ: Jeden kontener na wszystkie dane (szczegóły)
+    const detailsDiv = createElement('div', { class: 'user-details' });
     
+    detailsDiv.innerHTML = `
+        <p>Imię: ${user.first_name || ''}</p>
+        <p>Nazwisko: ${user.last_name || ''}</p>
+        <p>Adres: ${user.portfolio_url || 'Brak'}</p>
+        <p>Zdjęcia: ${user.total_photos}</p>
+        <p>Like: ${user.total_likes}</p>
+    `;
+
+    rowDiv.appendChild(img); // Najpierw zdjęcie
+    rowDiv.appendChild(titleSpan); // Potem tytuł
+    rowDiv.appendChild(detailsDiv); // Na końcu detale
+
+    return rowDiv;
+}
+}

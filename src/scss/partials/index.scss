@@ -58,8 +58,8 @@ input {
     font-size: 20px;
     border-radius: 0; // Reset dla appearance button
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-    -webkit-appearance: button;
-    appearance: button;
+    -webkit-appearance: none;
+    appearance: none;
     outline: none;
     cursor: pointer;
 
@@ -69,7 +69,7 @@ input {
   }
 
   &::before {
-    content: "\f13a";
+    content: "▼";
     position: absolute;
     top: 0;
     right: 0;
@@ -153,11 +153,31 @@ input {
 }
 
 // Pomocnicze klasy (jeśli używane)
-.photos-tab__searchbar {
+.photos-tab__searchbar,
+.collections-tab__searchbar,
+.user-tab__searchbar {
   display: flex; 
   flex-direction: row; 
   justify-content: center; 
   gap: 15px;
   padding: 20px;
   flex-wrap: wrap;
+}
+
+.user-details {
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+  
+  p {
+    margin: 4px 0; // Małe odstępy między liniami
+  }
+}
+
+.autocomplete__result-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; // Wszystko od góry
+  height: 100%; // Wyrównaj wysokość kart w rzędzie
+  background: white; // Żeby tekst był czytelny
 }
