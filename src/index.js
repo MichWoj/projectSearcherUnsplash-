@@ -40,7 +40,7 @@ function renderPhotos(photos) {
     }
 
     resultsContainer.innerHTML = photos.map(photo => `
-        <div class="photo-item" style="display: inline-block; margin: 10px;">
+        <div class="photo-item" style="display: inline-block; margin:10px">
             <img src="${photo.urls.small}" alt="${photo.alt_description || 'Unsplash Photo'}" 
                  style="width: 250px; height: 200px; object-fit: cover; border-radius: 20px;">
         </div>

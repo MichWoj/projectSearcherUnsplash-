@@ -106,8 +106,10 @@ input {
 .photos-tab__results, 
 .collections-tab__results, 
 .user-tab__results,
-.autocomplete__results {
-  display: grid;
+.autocomplete__results
+.autocomplete__result-row{
+  display: flex;
+  flex-wrap: wrap;
   // Dynamiczne kolumny - równe odstępy GAP
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px; 
@@ -122,11 +124,11 @@ input {
 .collections-tab__results img,
 .user-tab__results img,
 .autocomplete__result-row img {
-  width: 100%;
-  height: 250px; 
+  width: 250px;
+  height: 200px; 
   object-fit: cover;
-  border-radius: $common-radius; 
-  display: block;
+  border-radius: 20px;
+  display: inline-block;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
@@ -135,14 +137,6 @@ input {
   }
 }
 
-// Karta użytkownika/kolekcji (jeśli zawiera tekst pod zdjęciem)
-.autocomplete__result-row {
-  display: flex;
-  flex-direction: column;
-  background: rgba(255, 255, 255, 0.15); 
-  border-radius: $common-radius;
-  overflow: hidden;
-  margin: 0; // Usunięcie marginesów psujących Grid
 
   .autocomplete__result-title {
     padding: 15px;
@@ -150,7 +144,7 @@ input {
     color: $primary-green;
     font-weight: bolder;
   }
-}
+
 
 // Pomocnicze klasy (jeśli używane)
 .photos-tab__searchbar,
@@ -179,5 +173,5 @@ input {
   flex-direction: column;
   justify-content: flex-start; // Wszystko od góry
   height: 100%; // Wyrównaj wysokość kart w rzędzie
-  background: white; // Żeby tekst był czytelny
+  background: transparent;  // Żeby tekst był czytelny
 }

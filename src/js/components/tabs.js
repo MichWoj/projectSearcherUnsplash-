@@ -161,7 +161,8 @@ function createRow(user) {
 
     const img = createElement('img', {
         class: 'autocomplete__result-thumb',
-        src: user.profile_image.large // medium może być za małe do szerokiego gridu
+        src: user.profile_image.large // medium może być za małe do szerokiego gridu,
+        
     });
 
     // NOWOŚĆ: Jeden kontener na wszystkie dane (szczegóły)
