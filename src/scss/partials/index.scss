@@ -103,19 +103,36 @@ input {
 }
 
 // --- Ujednolicona Siatka Wyników (Grid) ---
-.photos-tab__results, 
-.collections-tab__results, 
-.user-tab__results,
-.autocomplete__results
-.autocomplete__result-row{
+.photos-tab__results,
+.collections-tab__results,
+.user-tab__results {
   display: flex;
   flex-wrap: wrap;
-  // Dynamiczne kolumny - równe odstępy GAP
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px; 
+  gap: 20px;
   padding: 20px;
   box-sizing: border-box;
-  align-items: start;
+  align-items: flex-start;
+}
+
+.photo-item {
+  flex: 0 0 auto;
+  margin: 10px;
+}
+
+.autocomplete__results {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.autocomplete__result-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  background: transparent;
 }
 
 // --- Spójne Obrazy i Karty ---
@@ -145,6 +162,76 @@ input {
     font-weight: bolder;
   }
 
+  /* Modal / Pop-up */
+  .modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 50;
+  }
+
+  .modal.hide {
+    display: none;
+  }
+
+  .modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+  }
+
+  .modal__content {
+    position: relative;
+    max-width: 1100px;
+    width: 100%;
+    max-height: 90vh;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    overflow: auto;
+    z-index: 10;
+  }
+
+  .modal__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    border: none;
+    background: rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    color: $primary-green;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .modal__close:hover {
+    background: rgba(0, 0, 0, 0.22);
+  }
+
+  .modal__title {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: $primary-green;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .modal__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    align-items: start;
+  }
 
 // Pomocnicze klasy (jeśli używane)
 .photos-tab__searchbar,

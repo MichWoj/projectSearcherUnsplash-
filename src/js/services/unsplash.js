@@ -30,7 +30,7 @@ export function searchUsers(query) {
 
 export function getUserPictures(userId) {
     let queryString = `?client_id=${settings.clientId}`;
-    return fetch(`${settings.baseApiUrl}/users/username${userId}/portfolio${queryString}`)
+    return fetch(`${settings.baseApiUrl}/users/${userId}/photos${queryString}`)
     .then((rsp) => rsp.json());
    }
 

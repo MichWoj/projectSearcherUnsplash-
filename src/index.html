@@ -48,7 +48,6 @@
  <div class="autocomplete">
  <input placeholder="Wpisz nazwę kolekcji"/>
  <div class="autocomplete__results hide"></div>
- <div class="photos-tab__results"></div>
  </div>
  </div>
  <div class="collections-tab__results">
@@ -67,6 +66,16 @@
 
  </li>
  </ul>
+ </div>
+
+ <!-- Modal na podgląd zdjęć kolekcji -->
+ <div id="photo-modal" class="modal hide">
+   <div class="modal__overlay" data-action="close"></div>
+   <div class="modal__content">
+     <button class="modal__close" data-action="close">×</button>
+     <h2 class="modal__title">Zdjęcia kolekcji</h2>
+     <div class="modal__grid"></div>
+   </div>
  </div>
  
  </body>

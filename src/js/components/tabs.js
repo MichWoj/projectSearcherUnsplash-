@@ -15,6 +15,21 @@ export function initializeTabs(elm, tabFuncs) {
     }
    }
 
+// Wspólna funkcja renderowania zdjęć (jak w index.js)
+function renderPhotos(photos, container) {
+    if (photos.length === 0) {
+        container.innerHTML = '<p>Brak wyników dla podanych kryteriów.</p>';
+        return;
+    }
+
+    container.innerHTML = photos.map(photo => `
+        <div class="photo-item" style="display: inline-block; margin:10px">
+            <img src="${photo.urls.small}" alt="${photo.alt_description || 'Unsplash Photo'}" 
+                 style="width: 250px; height: 200px; object-fit: cover; border-radius: 20px;">
+        </div>
+    `).join('');
+}
+
    export function initializePhotosTab() {
     const searchInput = document.querySelector('#photos-tab input');
     const colorSelect = document.querySelector('#photos-tab select');
@@ -24,15 +39,7 @@ export function initializeTabs(elm, tabFuncs) {
     selectButton.addEventListener('click', () => {
     searchPhotos(searchInput.value, colorSelect.value)
     .then((photos) => {
-    results.innerHTML = '';
-
-    for (const photo of photos.results) {
-    const img = createElement('img', {
-    src: photo.urls.thumb
-    });
-
-    results.appendChild(img);
-    }
+    renderPhotos(photos.results, results);
     });
     });
    }
@@ -40,7 +47,7 @@ export function initializeTabs(elm, tabFuncs) {
     export function initializeCollectionsTab() {
     const searchInput = document.querySelector('#collections-tab input');
     const autocompleteResults = document.querySelector('#collections-tab .autocomplete__results');
-    const results = document.querySelector('#collections-tab .photos-tab__results');
+    const collectionsResults = document.querySelector('#collections-tab .collections-tab__results');
 
     let debounceTimeout; 
 
@@ -60,26 +67,69 @@ export function initializeTabs(elm, tabFuncs) {
         debounceTimeout = setTimeout(() => {
             searchCollections(searchInput.value)
             .then((collections) => {
-            results.innerHTML = '';
+            autocompleteResults.innerHTML = '';
+
             for (const collection of collections.results) {
             const rowDiv = createRow(collection);
             rowDiv.addEventListener('click', () => {
             handleAutocompleteSelect(collection.id);
             });
-            results.appendChild(rowDiv);
+            autocompleteResults.appendChild(rowDiv);
             }
-            console.log(collections);
             });
             }, 200);
             });
 
             
             function handleAutocompleteSelect(collectionId) {
+            // Pokaż loader w kontenerze wyników
+            collectionsResults.innerHTML = '<p>Ładowanie zdjęć kolekcji…</p>';
+            autocompleteResults.classList.add('hide');
+
             getCollectionPictures(collectionId)
             .then((pictures) => {
-            console.log(pictures);
+            renderCollectionPhotos(pictures);
+            })
+            .catch((error) => {
+            console.error('Błąd ładowania zdjęć kolekcji:', error);
+            collectionsResults.innerHTML = '<p>Nie udało się załadować zdjęć.</p>';
             });
             }
+
+            function renderCollectionPhotos(pictures) {
+            if (!pictures || pictures.length === 0) {
+            collectionsResults.innerHTML = '<p>Brak zdjęć w tej kolekcji.</p>';
+            return;
+            }
+
+            renderPhotos(pictures, collectionsResults);
+            }
+
+            function openModal(contentHtml) {
+            const modal = document.getElementById('photo-modal');
+            const modalGrid = modal.querySelector('.modal__grid');
+
+            if (contentHtml) {
+            modalGrid.innerHTML = contentHtml;
+            }
+
+            modal.classList.remove('hide');
+            }
+
+            function closeModal() {
+            const modal = document.getElementById('photo-modal');
+            modal.classList.add('hide');
+            }
+
+            // Zamknięcie modal przy kliknięciu w overlay lub krzyżyk
+            const modal = document.getElementById('photo-modal');
+            modal.addEventListener('click', (event) => {
+            const action = event.target.getAttribute('data-action');
+            if (action === 'close') {
+            closeModal();
+            }
+            });
+
             function createRow(colection) {
             const rowDiv = createElement('div', {
             class: 'autocomplete__result-row'
@@ -143,10 +193,30 @@ export function initializeUserTab() {
       
 
             function handleAutocompleteSelect(userId) {
-            getCollectionPictures(userId)
-            .then((pictures1) => {
-            console.log(pictures1);
+            // Pokaż loader w pop-upie
+            openModal('<p>Ładowanie zdjęć użytkownika…</p>');
+            autocompleteResults.classList.add('hide');
+
+            getUserPictures(userId)
+            .then((pictures) => {
+            renderUserPhotos(pictures);
+            })
+            .catch((error) => {
+            console.error('Błąd ładowania zdjęć użytkownika:', error);
+            openModal('<p>Nie udało się załadować zdjęć.</p>');
             });
+            }
+
+            function renderUserPhotos(pictures) {
+            const modalGrid = document.querySelector('#photo-modal .modal__grid');
+
+            if (!pictures || pictures.length === 0) {
+            openModal('<p>Brak zdjęć tego użytkownika.</p>');
+            return;
+            }
+
+            renderPhotos(pictures, modalGrid);
+            openModal();
             }
 
 function createRow(user) {
