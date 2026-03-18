@@ -105,7 +105,9 @@ input {
 // --- Ujednolicona Siatka Wyników (Grid) ---
 .photos-tab__results,
 .collections-tab__results,
-.user-tab__results {
+.user-tab__results, 
+.autocomplete__results
+{
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -119,13 +121,6 @@ input {
   margin: 10px;
 }
 
-.autocomplete__results {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 20px;
-  box-sizing: border-box;
-}
 
 .autocomplete__result-row {
   display: flex;
@@ -133,6 +128,7 @@ input {
   justify-content: flex-start;
   height: 100%;
   background: transparent;
+  padding:10px; 
 }
 
 // --- Spójne Obrazy i Karty ---
