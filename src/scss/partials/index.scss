@@ -89,6 +89,7 @@ box {
   flex-wrap: wrap;
   align-items: center;
   gap: 10px;
+  margin-top: 20px;
 }
 
 .autocomplete__result-title{
@@ -113,6 +114,10 @@ box {
 
 img{
   border-radius: 25px; 
+  width: auto;                
+  object-fit: cover;       
+  align-self: flex-start; 
+  aspect-ratio: 4 / 3; 
 }
 
 
